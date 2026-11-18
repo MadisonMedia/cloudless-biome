@@ -1,0 +1,34 @@
+name: Bug report
+description: Something does not work as described
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: For example which device switched when, and when you expected it.
+    validations:
+      required: true
+  - type: input
+    id: biome
+    attributes:
+      label: Biome version
+      placeholder: 0.1.0b1
+    validations:
+      required: true
+  - type: input
+    id: homeassistant
+    attributes:
+      label: Home Assistant version
+      placeholder: 2026.11.0
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Biome log
+      description: The log at the bottom of the Biome page helps a lot.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log lines
+      render: text

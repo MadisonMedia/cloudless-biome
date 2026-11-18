@@ -1,0 +1,205 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Neues Biom",
+        "description": "Ein Biom ist z. B. ein Terrarium oder Gewächshaus. Lege den Biom-Tag des ersten Profils fest. Geräte und weitere Profile fügst du danach auf der Seite der Integration hinzu, die Übersicht findest du unter [Biome]({panel}). Ein neues Biom startet im Trockenlauf und schaltet noch nichts.",
+        "data": {
+          "name": "Name des Bioms",
+          "profile_name": "Name des ersten Profils",
+          "day_start": "Tagesbeginn",
+          "day_end": "Tagesende",
+          "start_date": "Gilt ab (Datum)"
+        },
+        "data_description": {
+          "profile_name": "Zum Beispiel Winter oder Sommer.",
+          "start_date": "Leer lassen, wenn du das Profil nur von Hand wählen willst."
+        }
+      }
+    },
+    "error": {
+      "same_times": "Tagesbeginn und Tagesende dürfen nicht gleich sein."
+    }
+  },
+  "config_subentries": {
+    "profile": {
+      "entry_type": "Profil",
+      "initiate_flow": {
+        "user": "Profil hinzufügen",
+        "reconfigure": "Profil ändern"
+      },
+      "step": {
+        "user": {
+          "title": "Profil",
+          "description": "Ein Profil steht für eine Jahreszeit mit eigenem Biom-Tag. Mit einem Startdatum wechselt Biome jedes Jahr an diesem Tag selbst in das Profil. Das Jahr spielt keine Rolle.",
+          "data": {
+            "profile_name": "Name",
+            "day_start": "Tagesbeginn",
+            "day_end": "Tagesende",
+            "start_date": "Gilt ab (Datum)",
+            "copy_from": "Geräteeinstellungen übernehmen von",
+            "transition": "Weicher Übergang (Tage)"
+          },
+          "data_description": {
+            "start_date": "Leer lassen, wenn du das Profil nur von Hand wählen willst.",
+            "copy_from": "Geräte, die du für das neue Profil noch nicht eingestellt hast, laufen wie in diesem Profil.",
+            "transition": "Über so viele Tage ab dem Startdatum verschiebt sich der Biom-Tag langsam von den Zeiten des vorigen Profils zu diesen. 0 wechselt sofort. Welche Geräte laufen, wechselt am Startdatum."
+          }
+        },
+        "reconfigure": {
+          "title": "Profil",
+          "description": "Ein Profil steht für eine Jahreszeit mit eigenem Biom-Tag. Mit einem Startdatum wechselt Biome jedes Jahr an diesem Tag selbst in das Profil. Das Jahr spielt keine Rolle.",
+          "data": {
+            "profile_name": "Name",
+            "day_start": "Tagesbeginn",
+            "day_end": "Tagesende",
+            "start_date": "Gilt ab (Datum)",
+            "copy_from": "Geräteeinstellungen übernehmen von",
+            "transition": "Weicher Übergang (Tage)"
+          },
+          "data_description": {
+            "start_date": "Leer lassen, wenn du das Profil nur von Hand wählen willst.",
+            "copy_from": "Geräte, die du für das neue Profil noch nicht eingestellt hast, laufen wie in diesem Profil.",
+            "transition": "Über so viele Tage ab dem Startdatum verschiebt sich der Biom-Tag langsam von den Zeiten des vorigen Profils zu diesen. 0 wechselt sofort. Welche Geräte laufen, wechselt am Startdatum."
+          }
+        }
+      },
+      "error": {
+        "same_times": "Tagesbeginn und Tagesende dürfen nicht gleich sein."
+      },
+      "abort": {
+        "reconfigure_successful": "Gespeichert."
+      }
+    },
+    "device": {
+      "entry_type": "Gerät",
+      "initiate_flow": {
+        "user": "Gerät hinzufügen",
+        "reconfigure": "Gerät ändern"
+      },
+      "step": {
+        "user": {
+          "title": "Gerät",
+          "description": "Eine Steckdose oder Leuchte, die dem Biom-Tag folgt. Danach legst du für jedes Profil fest, wann sie läuft.",
+          "data": {
+            "entity_id": "Schalter oder Leuchte",
+            "name": "Name",
+            "kind": "Art",
+            "manual": "Wenn jemand von Hand schaltet",
+            "manual_minutes": "Dauer der Handschaltung"
+          },
+          "data_description": {
+            "name": "Leer lassen für den Namen der Entität.",
+            "manual_minutes": "Nur für „Für eine feste Dauer“."
+          }
+        },
+        "reconfigure": {
+          "title": "Gerät",
+          "description": "Eine Steckdose oder Leuchte, die dem Biom-Tag folgt. Danach legst du für jedes Profil fest, wann sie läuft.",
+          "data": {
+            "entity_id": "Schalter oder Leuchte",
+            "name": "Name",
+            "kind": "Art",
+            "manual": "Wenn jemand von Hand schaltet",
+            "manual_minutes": "Dauer der Handschaltung"
+          },
+          "data_description": {
+            "name": "Leer lassen für den Namen der Entität.",
+            "manual_minutes": "Nur für „Für eine feste Dauer“."
+          }
+        },
+        "profile": {
+          "title": "{device}: {profile} ({step})",
+          "description": "Biom-Tag im Profil {profile}: {day_start} bis {day_end}. Der Versatz verschiebt Ein- und Ausschalten, positive Minuten heißen später, negative früher. Beispiel: +15 und −15 schalten 15 Minuten nach Tagesbeginn ein und 15 Minuten vor Tagesende aus.",
+          "data": {
+            "active": "In diesem Profil aktiv",
+            "on_offset": "Versatz Einschalten",
+            "off_offset": "Versatz Ausschalten",
+            "brightness": "Helligkeit",
+            "ramp": "Dauer des Hoch- und Runterdimmens"
+          },
+          "data_description": {
+            "active": "Aus: Das Gerät bleibt in diesem Profil aus, z. B. eine Heizung im Sommer.",
+            "brightness": "Leer lassen, um nur ein- und auszuschalten.",
+            "ramp": "0 schaltet ohne Dimmen."
+          }
+        }
+      },
+      "error": {
+        "already_used": "Dieses Gerät gehört schon zum Biom."
+      },
+      "abort": {
+        "no_profiles": "Lege zuerst ein Profil an.",
+        "reconfigure_successful": "Gespeichert."
+      }
+    }
+  },
+  "selector": {
+    "kind": {
+      "options": {
+        "light": "Licht",
+        "heat": "Wärme",
+        "rain": "Beregnung",
+        "air": "Lüftung",
+        "other": "Sonstiges"
+      }
+    },
+    "manual": {
+      "options": {
+        "next": "Bis zum nächsten Schaltpunkt",
+        "duration": "Für eine feste Dauer",
+        "never": "Sofort zurück zum Plan"
+      }
+    }
+  },
+  "entity": {
+    "select": {
+      "profile": {
+        "name": "Profil"
+      }
+    },
+    "switch": {
+      "paused": {
+        "name": "Pause"
+      },
+      "dry_run": {
+        "name": "Trockenlauf"
+      }
+    },
+    "sensor": {
+      "next_switch": {
+        "name": "Nächster Schaltpunkt"
+      },
+      "phase": {
+        "name": "Phase",
+        "state": {
+          "day": "Tag",
+          "night": "Nacht"
+        }
+      },
+      "device_status": {
+        "name": "Status",
+        "state": {
+          "on": "An",
+          "off": "Aus",
+          "manual_on": "Von Hand an",
+          "manual_off": "Von Hand aus",
+          "inactive": "Inaktiv im Profil"
+        }
+      }
+    },
+    "binary_sensor": {
+      "device_problem": {
+        "name": "Problem"
+      }
+    },
+    "button": {
+      "resume_all": {
+        "name": "Alle zurück zum Plan"
+      },
+      "resume": {
+        "name": "Zurück zum Plan"
+      }
+    }
+  }
+}

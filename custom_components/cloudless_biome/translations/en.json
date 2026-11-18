@@ -1,0 +1,205 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "New biome",
+        "description": "A biome is, for example, a terrarium or a greenhouse. Set the biome day of the first profile. You add devices and more profiles afterwards on the integration's page; the overview is on the [Biome]({panel}) page. A new biome starts in a dry run and does not switch anything yet.",
+        "data": {
+          "name": "Name of the biome",
+          "profile_name": "Name of the first profile",
+          "day_start": "Day starts",
+          "day_end": "Day ends",
+          "start_date": "Starts on (date)"
+        },
+        "data_description": {
+          "profile_name": "For example winter or summer.",
+          "start_date": "Leave empty to choose the profile by hand only."
+        }
+      }
+    },
+    "error": {
+      "same_times": "The day cannot start and end at the same time."
+    }
+  },
+  "config_subentries": {
+    "profile": {
+      "entry_type": "Profile",
+      "initiate_flow": {
+        "user": "Add profile",
+        "reconfigure": "Change profile"
+      },
+      "step": {
+        "user": {
+          "title": "Profile",
+          "description": "A profile stands for a season with its own biome day. With a start date, Biome switches to the profile on that day every year by itself. The year does not matter.",
+          "data": {
+            "profile_name": "Name",
+            "day_start": "Day starts",
+            "day_end": "Day ends",
+            "start_date": "Starts on (date)",
+            "copy_from": "Take device settings from",
+            "transition": "Soft change (days)"
+          },
+          "data_description": {
+            "start_date": "Leave empty to choose the profile by hand only.",
+            "copy_from": "Devices you have not yet set up for the new profile run as in this profile.",
+            "transition": "Over this many days from the start date, the biome day moves slowly from the previous profile's times to these. 0 changes at once. Which devices run changes on the start date."
+          }
+        },
+        "reconfigure": {
+          "title": "Profile",
+          "description": "A profile stands for a season with its own biome day. With a start date, Biome switches to the profile on that day every year by itself. The year does not matter.",
+          "data": {
+            "profile_name": "Name",
+            "day_start": "Day starts",
+            "day_end": "Day ends",
+            "start_date": "Starts on (date)",
+            "copy_from": "Take device settings from",
+            "transition": "Soft change (days)"
+          },
+          "data_description": {
+            "start_date": "Leave empty to choose the profile by hand only.",
+            "copy_from": "Devices you have not yet set up for the new profile run as in this profile.",
+            "transition": "Over this many days from the start date, the biome day moves slowly from the previous profile's times to these. 0 changes at once. Which devices run changes on the start date."
+          }
+        }
+      },
+      "error": {
+        "same_times": "The day cannot start and end at the same time."
+      },
+      "abort": {
+        "reconfigure_successful": "Saved."
+      }
+    },
+    "device": {
+      "entry_type": "Device",
+      "initiate_flow": {
+        "user": "Add device",
+        "reconfigure": "Change device"
+      },
+      "step": {
+        "user": {
+          "title": "Device",
+          "description": "An outlet or light that follows the biome day. Next you set when it runs in each profile.",
+          "data": {
+            "entity_id": "Switch or light",
+            "name": "Name",
+            "kind": "Kind",
+            "manual": "When someone switches by hand",
+            "manual_minutes": "Duration of a manual switch"
+          },
+          "data_description": {
+            "name": "Leave empty for the entity's name.",
+            "manual_minutes": "Only for “For a fixed time”."
+          }
+        },
+        "reconfigure": {
+          "title": "Device",
+          "description": "An outlet or light that follows the biome day. Next you set when it runs in each profile.",
+          "data": {
+            "entity_id": "Switch or light",
+            "name": "Name",
+            "kind": "Kind",
+            "manual": "When someone switches by hand",
+            "manual_minutes": "Duration of a manual switch"
+          },
+          "data_description": {
+            "name": "Leave empty for the entity's name.",
+            "manual_minutes": "Only for “For a fixed time”."
+          }
+        },
+        "profile": {
+          "title": "{device}: {profile} ({step})",
+          "description": "Biome day in the {profile} profile: {day_start} to {day_end}. The offset moves switching on and off; positive minutes mean later, negative earlier. Example: +15 and −15 switch on 15 minutes after the day starts and off 15 minutes before it ends.",
+          "data": {
+            "active": "Active in this profile",
+            "on_offset": "Offset switching on",
+            "off_offset": "Offset switching off",
+            "brightness": "Brightness",
+            "ramp": "Time to dim up and down"
+          },
+          "data_description": {
+            "active": "Off: the device stays off in this profile, for example a heater in summer.",
+            "brightness": "Leave empty to only switch on and off.",
+            "ramp": "0 switches without dimming."
+          }
+        }
+      },
+      "error": {
+        "already_used": "This device already belongs to the biome."
+      },
+      "abort": {
+        "no_profiles": "Add a profile first.",
+        "reconfigure_successful": "Saved."
+      }
+    }
+  },
+  "selector": {
+    "kind": {
+      "options": {
+        "light": "Light",
+        "heat": "Heat",
+        "rain": "Rain",
+        "air": "Air",
+        "other": "Other"
+      }
+    },
+    "manual": {
+      "options": {
+        "next": "Until the next switching point",
+        "duration": "For a fixed time",
+        "never": "Back to the plan at once"
+      }
+    }
+  },
+  "entity": {
+    "select": {
+      "profile": {
+        "name": "Profile"
+      }
+    },
+    "switch": {
+      "paused": {
+        "name": "Pause"
+      },
+      "dry_run": {
+        "name": "Dry run"
+      }
+    },
+    "sensor": {
+      "next_switch": {
+        "name": "Next switching point"
+      },
+      "phase": {
+        "name": "Phase",
+        "state": {
+          "day": "Day",
+          "night": "Night"
+        }
+      },
+      "device_status": {
+        "name": "Status",
+        "state": {
+          "on": "On",
+          "off": "Off",
+          "manual_on": "On by hand",
+          "manual_off": "Off by hand",
+          "inactive": "Inactive in profile"
+        }
+      }
+    },
+    "binary_sensor": {
+      "device_problem": {
+        "name": "Problem"
+      }
+    },
+    "button": {
+      "resume_all": {
+        "name": "All back to the plan"
+      },
+      "resume": {
+        "name": "Back to the plan"
+      }
+    }
+  }
+}
