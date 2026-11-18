@@ -1,0 +1,20 @@
+{
+  "domain": "cloudless_biome",
+  "name": "Cloudless Biome",
+  "codeowners": [
+    "@MadisonMedia"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "frontend",
+    "http",
+    "panel_custom",
+    "websocket_api"
+  ],
+  "documentation": "https://github.com/MadisonMedia/cloudless-biome",
+  "integration_type": "hub",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/MadisonMedia/cloudless-biome/issues",
+  "requirements": [],
+  "version": "0.1.0b1"
+}

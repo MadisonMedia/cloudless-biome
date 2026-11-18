@@ -1,0 +1,438 @@
+{
+ "entry_id": "01M7MTM50014C5614RC1G093E9",
+ "device_id": "1c0949766f8f408d0fc2aab889bd0e96",
+ "title": "Terrarium",
+ "now": "2026-11-17T14:20:00+01:00",
+ "range": [
+  "2026-11-17T00:00:00+01:00",
+  "2026-11-18T00:00:00+01:00"
+ ],
+ "time_zone": "Europe/Berlin",
+ "paused": false,
+ "dry_run": true,
+ "day": true,
+ "day_windows": [
+  [
+   "2026-11-17T09:00:00+01:00",
+   "2026-11-17T19:00:00+01:00"
+  ]
+ ],
+ "profile": {
+  "id": "winter",
+  "name": "Winter",
+  "manual": false,
+  "until": null,
+  "automatic": true,
+  "day_start": "09:00",
+  "day_end": "19:00",
+  "transition": null
+ },
+ "profiles": [
+  {
+   "id": "summer",
+   "name": "Sommer",
+   "day_start": "08:00",
+   "day_end": "20:00",
+   "start": "04-01",
+   "transition": 0,
+   "event": "date",
+   "offset": 0,
+   "day_mode": "fixed",
+   "last_start": "2026-04-01",
+   "next_start": "2027-04-01",
+   "today": [
+    "08:00",
+    "20:00"
+   ]
+  },
+  {
+   "id": "winter",
+   "name": "Winter",
+   "day_start": "09:00",
+   "day_end": "19:00",
+   "start": "11-01",
+   "transition": 0,
+   "event": "date",
+   "offset": 0,
+   "day_mode": "fixed",
+   "last_start": "2026-11-01",
+   "next_start": "2027-11-01",
+   "today": [
+    "09:00",
+    "19:00"
+   ]
+  }
+ ],
+ "latitude": 52.5,
+ "longitude": 13.4,
+ "devices": [
+  {
+   "id": "lamp1",
+   "name": "Lampe 1",
+   "kind": "light",
+   "entity_id": "switch.lamp1",
+   "manual": "next",
+   "manual_minutes": 60,
+   "max_on": 0,
+   "setting": {
+    "active": true,
+    "always": false,
+    "spans": [
+     {
+      "on": {
+       "ref": "start",
+       "value": 0
+      },
+      "off": {
+       "ref": "end",
+       "value": 0
+      },
+      "every": null,
+      "pulse": null
+     }
+    ],
+    "brightness": null,
+    "ramp": 0
+   },
+   "windows": [
+    {
+     "span": [
+      "2026-11-17T09:00:00+01:00",
+      "2026-11-17T19:00:00+01:00"
+     ],
+     "start": "2026-11-17T09:00:00+01:00",
+     "end": "2026-11-17T19:00:00+01:00",
+     "brightness": null,
+     "ramp": 0
+    }
+   ],
+   "on": true,
+   "planned": true,
+   "reason": "plan",
+   "paused": false,
+   "override": null,
+   "next_change": "2026-11-17T19:00:00+01:00",
+   "next_state": "off",
+   "actual": "on",
+   "brightness": null,
+   "problem": null,
+   "would": null
+  },
+  {
+   "id": "lamp2",
+   "name": "Lampe 2",
+   "kind": "light",
+   "entity_id": "switch.lamp2",
+   "manual": "next",
+   "manual_minutes": 60,
+   "max_on": 0,
+   "setting": {
+    "active": true,
+    "always": false,
+    "spans": [
+     {
+      "on": {
+       "ref": "start",
+       "value": 15
+      },
+      "off": {
+       "ref": "end",
+       "value": -15
+      },
+      "every": null,
+      "pulse": null
+     }
+    ],
+    "brightness": null,
+    "ramp": 0
+   },
+   "windows": [
+    {
+     "span": [
+      "2026-11-17T09:15:00+01:00",
+      "2026-11-17T18:45:00+01:00"
+     ],
+     "start": "2026-11-17T09:15:00+01:00",
+     "end": "2026-11-17T18:45:00+01:00",
+     "brightness": null,
+     "ramp": 0
+    }
+   ],
+   "on": false,
+   "planned": true,
+   "reason": "manual",
+   "paused": false,
+   "override": {
+    "state": "off",
+    "since": "2026-11-17T14:20:00+01:00",
+    "until": "2026-11-17T18:45:00+01:00"
+   },
+   "next_change": "2026-11-17T18:45:00+01:00",
+   "next_state": "off",
+   "actual": "off",
+   "brightness": null,
+   "problem": null,
+   "would": null
+  },
+  {
+   "id": "heat",
+   "name": "Heizung",
+   "kind": "heat",
+   "entity_id": "switch.heat",
+   "manual": "next",
+   "manual_minutes": 60,
+   "max_on": 0,
+   "setting": {
+    "active": true,
+    "always": false,
+    "spans": [
+     {
+      "on": {
+       "ref": "start",
+       "value": -30
+      },
+      "off": {
+       "ref": "end",
+       "value": 0
+      },
+      "every": null,
+      "pulse": null
+     }
+    ],
+    "brightness": null,
+    "ramp": 0
+   },
+   "windows": [
+    {
+     "span": [
+      "2026-11-17T08:30:00+01:00",
+      "2026-11-17T19:00:00+01:00"
+     ],
+     "start": "2026-11-17T08:30:00+01:00",
+     "end": "2026-11-17T19:00:00+01:00",
+     "brightness": null,
+     "ramp": 0
+    }
+   ],
+   "on": true,
+   "planned": true,
+   "reason": "plan",
+   "paused": false,
+   "override": null,
+   "next_change": "2026-11-17T19:00:00+01:00",
+   "next_state": "off",
+   "actual": "on",
+   "brightness": null,
+   "problem": null,
+   "would": null
+  }
+ ],
+ "config": {
+  "profiles": [
+   {
+    "id": "winter",
+    "name": "Winter",
+    "day_start": "09:00",
+    "day_end": "19:00",
+    "start_date": "11-01",
+    "start_event": "date",
+    "start_offset": 0,
+    "transition": 0,
+    "day_mode": "fixed",
+    "copy_from": null
+   },
+   {
+    "id": "summer",
+    "name": "Sommer",
+    "day_start": "08:00",
+    "day_end": "20:00",
+    "start_date": "04-01",
+    "start_event": "date",
+    "start_offset": 0,
+    "transition": 0,
+    "day_mode": "fixed",
+    "copy_from": null
+   }
+  ],
+  "devices": [
+   {
+    "id": "lamp1",
+    "name": "Lampe 1",
+    "entity_id": "switch.lamp1",
+    "kind": "light",
+    "manual": "next",
+    "manual_minutes": 60,
+    "max_on": null,
+    "profiles": {
+     "winter": {
+      "active": true,
+      "mode": "windows",
+      "spans": [
+       {
+        "on": {
+         "ref": "start",
+         "value": 0
+        },
+        "off": {
+         "ref": "end",
+         "value": 0
+        },
+        "every": null,
+        "pulse": null
+       }
+      ],
+      "brightness": null,
+      "ramp": 0
+     },
+     "summer": {
+      "active": true,
+      "mode": "windows",
+      "spans": [
+       {
+        "on": {
+         "ref": "start",
+         "value": 0
+        },
+        "off": {
+         "ref": "end",
+         "value": 0
+        },
+        "every": null,
+        "pulse": null
+       }
+      ],
+      "brightness": null,
+      "ramp": 0
+     }
+    }
+   },
+   {
+    "id": "lamp2",
+    "name": "Lampe 2",
+    "entity_id": "switch.lamp2",
+    "kind": "light",
+    "manual": "next",
+    "manual_minutes": 60,
+    "max_on": null,
+    "profiles": {
+     "winter": {
+      "active": true,
+      "mode": "windows",
+      "spans": [
+       {
+        "on": {
+         "ref": "start",
+         "value": 15
+        },
+        "off": {
+         "ref": "end",
+         "value": -15
+        },
+        "every": null,
+        "pulse": null
+       }
+      ],
+      "brightness": null,
+      "ramp": 0
+     },
+     "summer": {
+      "active": true,
+      "mode": "windows",
+      "spans": [
+       {
+        "on": {
+         "ref": "start",
+         "value": 15
+        },
+        "off": {
+         "ref": "end",
+         "value": -15
+        },
+        "every": null,
+        "pulse": null
+       }
+      ],
+      "brightness": null,
+      "ramp": 0
+     }
+    }
+   },
+   {
+    "id": "heat",
+    "name": "Heizung",
+    "entity_id": "switch.heat",
+    "kind": "heat",
+    "manual": "next",
+    "manual_minutes": 60,
+    "max_on": null,
+    "profiles": {
+     "winter": {
+      "active": true,
+      "mode": "windows",
+      "spans": [
+       {
+        "on": {
+         "ref": "start",
+         "value": -30
+        },
+        "off": {
+         "ref": "end",
+         "value": 0
+        },
+        "every": null,
+        "pulse": null
+       }
+      ],
+      "brightness": null,
+      "ramp": 0
+     },
+     "summer": {
+      "active": false,
+      "mode": "windows",
+      "spans": [
+       {
+        "on": {
+         "ref": "start",
+         "value": 0
+        },
+        "off": {
+         "ref": "end",
+         "value": 0
+        },
+        "every": null,
+        "pulse": null
+       }
+      ],
+      "brightness": null,
+      "ramp": 0
+     }
+    }
+   }
+  ],
+  "settings": {
+   "max_on": {
+    "rain": 30
+   },
+   "natural": {},
+   "sensors": [],
+   "price": null
+  }
+ },
+ "notes": "",
+ "next": {
+  "at": "2026-11-17T18:45:00+01:00",
+  "device": "lamp2",
+  "name": "Lampe 2",
+  "state": false
+ },
+ "log": [
+  {
+   "at": "2026-11-17T14:20:00+01:00",
+   "kind": "manual",
+   "device": "lamp2",
+   "name": "Lampe 2",
+   "state": "off",
+   "until": "2026-11-17T18:45:00+01:00"
+  }
+ ]
+}

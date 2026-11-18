@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biome harness</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; }
+
+</style>
+</head>
+<body>
+<!-- The Biome page with fixed data from the backend, for screenshots: ?lang=en|de, ?dark=1, ?width=… -->
+<script type="module">
+  // A stand-in for Home Assistant's icons: an outlined circle. Styles set on the element itself, since the page uses shadow DOM.
+  customElements.define("ha-icon", class extends HTMLElement {
+    connectedCallback() {
+      Object.assign(this.style, { display: "inline-block", flex: "none", boxSizing: "border-box", width: "var(--mdc-icon-size, 20px)", height: "var(--mdc-icon-size, 20px)", borderRadius: "50%", border: "2px solid currentColor", opacity: ".8" });
+    }
+  });
+  const params = new URLSearchParams(location.search);
+  const lang = params.get("lang") || "de";
+  const dark = params.get("dark") === "1";
+  const snap = await (await fetch("./harness-data.json")).json();
+  snap.device_id = "biome";
+  snap.notes = "Bartagame (Pogona vitticeps)\nTag: 28–32 °C, Sonnenplatz 40–45 °C\nNacht: 20–22 °C";
+  if (lang === "en") {
+    // English names for the English pictures.
+    const names = { "Lampe 1": "Light 1", "Lampe 2": "Light 2", Heizung: "Heater", Sommer: "Summer" };
+    const rename = (x) => names[x] ?? x;
+    for (const d of [...snap.devices, ...snap.config.devices]) d.name = rename(d.name);
+    for (const p of [...snap.profiles, ...snap.config.profiles]) p.name = rename(p.name);
+    snap.profile.name = rename(snap.profile.name);
+    if (snap.next) snap.next.name = rename(snap.next.name);
+    for (const i of snap.log) if (i.name) i.name = rename(i.name);
+    snap.notes = "Bearded dragon (Pogona vitticeps)\nDay: 28–32 °C, basking spot 40–45 °C\nNight: 20–22 °C";
+  }
+  const now = new Date(snap.now).getTime();
+  Date.now = () => now;
+
+  // Outlets of a strip that are not in the biome yet, lights elsewhere, and the strip's power and energy.
+  const extra = {
+    "switch.eve_strip_steckdose_1": ["Eve Energy Strip Steckdose 1", "strip"],
+    "switch.eve_strip_steckdose_2": ["Eve Energy Strip Steckdose 2", "strip"],
+    "light.uv_lampe": ["UV-Lampe", "strip"],
+    "switch.stehlampe": ["Stehlampe", null, "living"],
+  };
+  const states = {};
+  const entities = {};
+  for (const d of snap.devices) {
+    states[d.entity_id] = { state: d.actual, attributes: { friendly_name: d.name } };
+    entities[d.entity_id] = { platform: "homekit_controller", device_id: "strip" };
+  }
+  for (const [id, [name, device, area]] of Object.entries(extra)) {
+    states[id] = { state: "off", attributes: { friendly_name: name } };
+    entities[id] = { platform: "homekit_controller", device_id: device, area_id: area };
+  }
+  const sensor = (id, name, value, unit, dc, device = "weather") => {
+    states[id] = { state: String(value), attributes: { friendly_name: name, unit_of_measurement: unit, device_class: dc } };
+    entities[id] = { platform: "homekit_controller", device_id: device };
+  };
+  const en = lang === "en";
+  sensor("sensor.eve_weather_temperatur", en ? "Temperature" : "Temperatur", 27.4, "°C", "temperature");
+  sensor("sensor.eve_weather_feuchte", en ? "Humidity" : "Luftfeuchte", 41, "%", "humidity");
+  sensor("sensor.aqara_temperatur", en ? "Basking spot" : "Sonnenplatz", 38.2, "°C", "temperature", "aqara");
+  sensor("sensor.eve_strip_leistung", "Eve Energy Strip Leistung", 186, "W", "power", "strip");
+  sensor("sensor.eve_strip_energie", "Eve Energy Strip Energie", 412.6, "kWh", "energy", "strip");
+
+  const history = (id, base, amp) => {
+    const out = [];
+    for (let i = 0; i <= 96; i++) {
+      const t = now - (96 - i) * 15 * 60000;
+      out.push({ s: String((base + amp * Math.sin((i / 96) * Math.PI * 2 - 1.2)).toFixed(1)), lu: t / 1000 });
+    }
+    return out;
+  };
+  const hass = {
+    states,
+    entities,
+    devices: { strip: { name: "Eve Energy Strip Terra", area_id: "terra" }, weather: { name: "Eve Weather", area_id: "terra" }, aqara: { name: "Aqara", area_id: "terra" }, biome: { name: snap.title, area_id: "terra" } },
+    areas: { terra: { name: "Terrarium" }, living: { name: "Wohnzimmer" } },
+    language: lang,
+    locale: { language: lang },
+    config: { time_zone: snap.time_zone },
+    themes: { darkMode: dark },
+    callWS: async (msg) => {
+      if (msg.type === "cloudless_biome/biomes") return [{ entry_id: snap.entry_id, title: snap.title }];
+      if (msg.type === "history/history_during_period")
+        return { "sensor.eve_weather_temperatur": history(0, 27, 3), "sensor.eve_weather_feuchte": history(0, 45, 8), "sensor.aqara_temperatur": history(0, 34, 7) };
+      if (msg.type === "recorder/statistics_during_period") {
+        const start = Date.parse(msg.start_time);
+        return { "sensor.eve_strip_energie": Array.from({ length: 30 }, (_, i) => ({ start: start + i * 86400000, change: 2.4 + (i % 5) * 0.3 })) };
+      }
+      return null;
+    },
+    connection: { subscribeMessage: async (cb) => { setTimeout(() => cb(snap), 0); return () => {}; } },
+  };
+  await import("../../custom_components/cloudless_biome/frontend/biome-panel.js");
+  const panel = document.createElement("biome-panel");
+  document.body.style.background = dark ? "#111512" : "#eef1f5";
+  if (dark) Object.assign(document.body.style, { "--primary-background-color": "#111512" });
+  if (dark) document.body.setAttribute("style", document.body.getAttribute("style") + ";--primary-background-color:#111512;--card-background-color:#1c211d;--primary-text-color:#e6ece7;--secondary-text-color:#9aa69e;--divider-color:#333b35");
+  document.body.append(panel);
+  panel.hass = hass;
+  panel.narrow = (params.get("width") || 1200) < 870;
+</script>
+</body>
+</html>
